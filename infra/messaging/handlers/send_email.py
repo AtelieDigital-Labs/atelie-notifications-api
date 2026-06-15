@@ -1,5 +1,5 @@
-from src.modules.emails.dependencies import get_notification_service
-from src.modules.emails.schemas.emails import EmailPayload
+from src.emails.dependencies import get_notification_service
+from src.emails.schemas.emails import EmailPayload
 from ..events.user_created import UserCreatedEvent
 from ..broker import broker
 from ..exchanges import exchange_accounts
