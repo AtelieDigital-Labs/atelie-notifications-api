@@ -1,0 +1,50 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Testes
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# IDEs
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Arquivos de ambiente
+.env
+.env.*
+
+# Docker
+docker-compose.override.yml
+
+# Documentação (opcional)
+docs/
+
+# Arquivos temporários
+*.swp
+*.swo
+
+# Build
+dist/
+build/
