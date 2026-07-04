@@ -1,0 +1,17 @@
+services:
+  worker:
+    build: 
+      context: .
+      dockerfile: infra/docker/Dockerfile
+    container_name: atelie-notifications-worker
+    restart: unless-stopped
+    command: faststream run infra.messaging.broker:app
+    env_file:
+      - .env
+    networks:
+      - atelie-network
+
+
+networks:
+  atelie-network:
+    external: true

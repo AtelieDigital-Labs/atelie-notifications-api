@@ -1,5 +1,4 @@
-from .exchanges import exchange_accounts
-from  faststream.rabbit import RabbitQueue
+from faststream.rabbit import RabbitQueue
 from .constants import Queue, RoutingKey
 
 user_created_queue = RabbitQueue(
@@ -7,4 +6,3 @@ user_created_queue = RabbitQueue(
     routing_key=RoutingKey.USER_CREATED,
     durable=True,
 )
-
