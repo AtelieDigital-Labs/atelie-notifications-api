@@ -4,6 +4,7 @@ from pydantic import AnyUrl, BaseModel, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from urllib.parse import unquote
 
+
 class SMTPConfig(BaseModel):
     scheme: str
     host: str

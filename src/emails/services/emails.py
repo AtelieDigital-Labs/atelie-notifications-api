@@ -2,6 +2,7 @@
 from src.utils.interfaces.senders import SenderProtocol
 from ..schemas.emails import EmailPayload
 
+
 class EmailService:
     def __init__(self, sender: SenderProtocol[EmailPayload]):
         self.sender = sender
