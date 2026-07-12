@@ -10,7 +10,7 @@ Ao desacoplar o envio de e-mails da lógica de negócio, a arquitetura torna-se 
 
 ---
 
-# 🚀 Tecnologias e Recursos
+## 🚀 Tecnologias e Recursos
 
 Este microsserviço foi construído utilizando as seguintes tecnologias:
 
@@ -19,11 +19,12 @@ Este microsserviço foi construído utilizando as seguintes tecnologias:
 * **SMTP:** Utilizado para o envio de e-mails aos usuários.
 * **Docker:** Containerização da aplicação.
 * **Docker Compose:** Orquestração do ambiente de desenvolvimento.
-* **UV:** Gerenciador de dependências e ambientes virtuais desenvolvido pela Astral.
+* **Ferramentas de Suporte:**
+    * **uv:** Gerenciador de pacotes e ambientes virtuais ultrarrápido.
 
 ---
 
-# 🏗️ Arquitetura
+## 🏗️ Arquitetura
 
 O Notification Service atua exclusivamente como consumidor de mensagens.
 
@@ -52,53 +53,44 @@ O Notification Service atua exclusivamente como consumidor de mensagens.
 
 ---
 
-# ⚙️ Configuração do Ambiente
+## ⚙️ Configuração do Ambiente
 
 Para executar este projeto localmente, utilizamos o **UV** como gerenciador de dependências.
 
-## 1. Instalação do UV
+### 1. Instalação do UV
 
 Caso ainda não possua o UV instalado, execute:
 
-### Linux / macOS
-
+**No Linux (ou macOS):**
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-### Windows (PowerShell)
-
+**No Windows (PowerShell):**
 ```powershell
 powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
 ---
 
-## 2. Criando o ambiente virtual
+### 2. Criando o ambiente virtual
 
-Na raiz do projeto:
-
+Na pasta raiz do projeto, crie um ambiente virtual limpo executando:
 ```bash
 uv venv
 ```
 
-Ative o ambiente virtual.
+Após a criação, **ative o ambiente virtual**:
+* **Linux / macOS:**
+    ```bash
+    source .venv/bin/activate
+    ```
+* **Windows:**
+    ```cmd
+    .venv\Scripts\activate
+    ```
 
-### Linux / macOS
-
-```bash
-source .venv/bin/activate
-```
-
-### Windows
-
-```powershell
-.venv\Scripts\activate
-```
-
----
-
-## 3. Instalando as dependências
+### 3. Instalando as dependências
 
 Caso exista um arquivo `uv.lock`, basta executar:
 
@@ -112,50 +104,35 @@ Sempre que novas dependências forem adicionadas ao projeto, execute novamente:
 uv sync
 ```
 
----
-
-# 🐳 Executando com Docker
-
-Construir a imagem:
-
+*Caso precise instalar as bibliotecas manualmente para testar o ambiente, o comando base seria:*
 ```bash
-docker compose build
-```
-
-Iniciar o serviço:
-
-```bash
-docker compose up
-```
-
-Ou executar em segundo plano:
-
-```bash
-docker compose up -d
+uv pip install fastapi uvicorn psycopg2-binary sqlalchemy python-jose[cryptography] pika pytest ruff taskipy faststream[cli, rabbit]
 ```
 
 ---
 
-# ▶️ Executando Localmente
+## ▶️ Como Executar a API
 
-Para iniciar o worker do FastStream:
+Você pode rodar o serviço em modo local de desenvolvimento diretamente via terminal ou de forma conteinerizada utilizando o Docker Compose para emular o ecossistema completo do Ateliê Digital.
+
+### Opção 1: Execução Local
+
+Para iniciar o servidor local de desenvolvimento, basta rodar:
 
 ```bash
 faststream run infra.messaging.broker:app
 ```
 
----
+### Opção 2: Execução via Docker Compose (Recomendado)
+Para integrar o serviço de orders aos demais microsserviços do **Ateliê Digital** (como o RabbitMQ e o banco de dados PostgreSQL), a execução via Docker Compose garante que todos os containers compartilhem a mesma rede de comunicação interna.
 
-# 📨 Fluxo de Funcionamento
+1. **Crie a rede de comunicação global do projeto** (caso ainda não tenha sido criada no seu ambiente docker):
+   ```bash
+   docker network create atelie-network
+   ```
 
-O Notification Service possui um fluxo simples e desacoplado:
-
-1. Um microsserviço publica um evento no RabbitMQ.
-2. O Notification Service consome a mensagem utilizando o FastStream.
-3. O payload recebido é processado.
-4. O serviço monta a mensagem de e-mail.
-5. O e-mail é enviado utilizando o servidor SMTP.
-6. O processamento da mensagem é concluído.
-
-Toda a regra de negócio permanece nos microsserviços produtores dos eventos, mantendo o Notification Service desacoplado e focado exclusivamente na entrega das notificações.
-
+2. **Inicie o serviço construindo a imagem do container**:
+   Na raiz do repositório, execute o comando abaixo para realizar o build da imagem Docker e subir o serviço em background ou anexado ao terminal:
+   ```bash
+   docker compose up --build
+   ```
