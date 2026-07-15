@@ -1,6 +1,6 @@
 # src/modules/emails/services/emails.py
-from utils.interfaces.senders import SenderProtocol
-from ..schemas.emails import EmailPayload
+from src.utils.interfaces.senders import SenderProtocol
+from src.emails.schemas.emails import EmailPayload
 
 
 class EmailService:

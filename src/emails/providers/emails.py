@@ -3,7 +3,7 @@ from email.message import EmailMessage
 import aiosmtplib
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from typing import Dict, Any
-from ..schemas.emails import EmailPayload
+from src.emails.schemas.emails import EmailPayload
 
 
 # Configuração básica de log (deve ser feita no ponto de entrada da aplicação)

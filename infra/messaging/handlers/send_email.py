@@ -1,9 +1,9 @@
 from src.emails.dependencies import get_notification_service
 from src.emails.schemas.emails import EmailPayload
-from ..events.user_created import UserCreatedEvent
-from ..broker import broker
-from ..exchanges import exchange_accounts
-from ..queues import user_created_queue
+from infra.messaging.events.user_created import UserCreatedEvent
+from infra.messaging.broker import broker
+from infra.messaging.exchanges import exchange_accounts
+from infra.messaging.queues import user_created_queue
 
 
 @broker.subscriber(exchange=exchange_accounts, queue=user_created_queue)

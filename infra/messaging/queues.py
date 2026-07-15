@@ -1,5 +1,5 @@
 from faststream.rabbit import RabbitQueue
-from .constants import Queue, RoutingKey
+from infra.messaging.constants import Queue, RoutingKey
 
 user_created_queue = RabbitQueue(
     name=Queue.USER_CREATED,

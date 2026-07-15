@@ -1,5 +1,5 @@
-from .services.emails import EmailService
-from .providers.emails import EmailSender
+from src.emails.services.emails import EmailService
+from src.emails.providers.emails import EmailSender
 from config.config import settings
 
 

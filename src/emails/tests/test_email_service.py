@@ -4,8 +4,8 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from emails.services.emails import EmailService
-from emails.schemas.emails import EmailPayload
+from src.emails.services.emails import EmailService
+from src.emails.schemas.emails import EmailPayload
 
 
 @pytest.mark.asyncio

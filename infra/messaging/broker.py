@@ -5,4 +5,6 @@ from config.config import settings
 broker = RabbitBroker(settings.messaging_url)
 app = FastStream(broker)
 
+from .handlers.send_email import handler_send_email
+
 # handlers
